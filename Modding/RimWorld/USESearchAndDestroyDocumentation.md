@@ -54,14 +54,17 @@ Algorithm MeleeCombatAI
 Input: Pawn pawn
 Output: Job job
 
-GetTargetForPawn(pawn)
+public Job MeleeCombatAI
+{
+    GetTargetForPawn(pawn)
 
-Job job - null;
+    Job job - null;
 
-if (pawn.mindstate.enemyTarget != null) {
-    LocalTargetInfo localTarget = pawn.mindstate.enemyTarget;
-    job = JobMaker.MakeJob(JobDefOf.Goto, enemyTarget);
+    if (pawn.mindstate.enemyTarget != null) {
+        LocalTargetInfo localTarget = pawn.mindstate.enemyTarget;
+        job = JobMaker.MakeJob(JobDefOf.Goto, enemyTarget);
+    }
+
+    return job;
 }
-
-return job;
 ```
