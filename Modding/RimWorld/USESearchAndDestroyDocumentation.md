@@ -52,16 +52,101 @@ Supported Game Version : 1.0-1.3
 ```C#
 Algorithm MeleeCombatAI
 Input: Pawn pawn
-Output: Job job
+Output: Job  
 
-GetTargetForPawn(pawn)
+public Job MeleeCombatAI(Pawn pawn)
+{
+    GetTargetForPawn(pawn)
 
-Job job - null;
+    Job job - null;
 
-if (pawn.mindstate.enemyTarget != null) {
-    LocalTargetInfo localTarget = pawn.mindstate.enemyTarget;
-    job = JobMaker.MakeJob(JobDefOf.Goto, enemyTarget);
+    if (pawn.mindstate.enemyTarget != null) {
+        LocalTargetInfo localTarget = pawn.mindstate.enemyTarget;
+        job = JobMaker.MakeJob(JobDefOf.Goto, enemyTarget);
+    }
+
+    return job;
 }
-
-return job;
 ```
+- 원거리 전투 AI 활성화 시 기대하는 AI의 행동
+```C#
+Algorithm RangedCombatAI  
+Input: Pawn pawn   
+Output: Job  
+
+public Job RangedCombatAI(Pawn pawn)
+{
+    GetTargetForPawn(pawn);
+
+    if (pawn.mindstate.enemyTarget == null)
+    {
+        UpdateEnemyTarget(pawn);
+    }
+
+    IntVec3 dest = GetShootingLocationForPawn(pawn);
+    
+    if (dest == pawn.Position)
+    {
+        return MakeJob(JobDefOf.Wait_Combat, expireTimeRange.RandomInt, true);
+    }
+    
+    Job result_job = MakeJob(JobDefOf.GoTo, dest);
+    result_job.expireInterval = expireTimeRange.RandomInt;
+    result_job.onlyExprieWhenEnemyNearby = false;
+    result_job.overrideWhenExpired = true;
+
+    return result_job  
+}
+```
+- 근접 전투 AI 활성화 여부 판단
+```C#
+Algorithm CheckIsMeleeCombatAIEnabled
+Input: Pawn pawn
+Output: bool 
+
+public bool CheckIsMeleeCombatAIEnabled (Pawn pawn)
+{
+   USESearchAndDestroyComp pawnData = pawn.TryGetComp<USESearchAndDestroyComp>();
+   if (pawnData == null)
+   {
+       Log.Error("Pawn pawn has no USESearchAndDestroyComp.");
+       return false;
+   }
+
+   if (pawnData.isMeleeAIEnabled == true)
+   {
+       return true;
+   }
+   else
+   {
+       return false;
+   }
+}
+```
+- 원거리 전투 AI 활성화 여부 판단  
+```C#
+Algorithm CheckIsRangedAIEnabled  
+Input: Pawn pawn
+Output: bool
+
+public bool CheckIsRangedAIEnabled(Pawn pawn)
+{
+    USESearchAndDestroyComp pawnData = pawn.TryGetComp<USESearchAndDestroyComp>();
+
+    if (pawnData == null)
+    {
+        Log.Error("Pawn pawn has no USESearchAndDestroyComp.");
+        return false;
+    }
+
+    if (pawnData.isRangedEnable == true)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+```  
+- s
