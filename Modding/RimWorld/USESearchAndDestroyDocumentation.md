@@ -148,5 +148,3 @@ public bool CheckIsRangedAIEnabled(Pawn pawn)
         return false;
     }
 }
-```  
-- s
