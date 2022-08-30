@@ -23,7 +23,94 @@ C++에서 클래스는 구조체와 유사한 점이 많다. C++에서 구조체
 
 ## 2. C++에서의 상속
 
+```c++
+#include <iostream>
 
+class FireArm
+{
+    private:
+        int FireArmInt;
+
+    protected:
+        int FireArmProtectedInt;
+
+    public:
+        int FireArmPublicInt;
+
+        FireArm() {
+            FireArmInt = 10;
+            FireArmProtectedInt = 20;
+            FireArmPublicInt = 30;
+        }
+
+        void FierArmFunc() {
+            std::cout << "FireArmFunc Called.";
+        }
+};
+
+class AssaultRifle : public FireArm
+{
+    public:
+        AssaultRifle() {
+            // 상속받은 관계라도 부모 클래스에 있는 private 멤버를 상속받을 순 없다. 접근 가능하고 상속 받을 수 있는 대상은 protected와 public 뿐이다.
+            // FireArmInt = 40
+            FireArmProtectedInt = 50;
+            FireArmPublicInt = 60;
+        }
+};
+
+class Shotgun : protected FireArm
+{
+    public:
+        Shotgun() {
+            FireArmProtectedInt = 70;
+            FireArmPublicInt = 80;
+        }
+};
+
+class Pistol : private FireArm
+{
+    public:
+        Pistol() {
+            FireArmProtectedInt = 90;
+            FireArmPublicInt = 100;
+        }
+};
+
+int main( void )
+{
+    FireArm *musket = new FireArm();
+    AssaultRifle *k2 = new AssaultRifle();
+    Shotgun *m1897 = new Shotgun();
+    Pistol *glock = new Pistol();
+
+    std::cout << musket->FireArmPublicInt << std::endl;
+    std::cout << k2->FireArmPublicInt << std::endl;
+
+    // 접근 한정자에서 Shotgun은 protected로 받았다. 이는 부모 클래스의 물려받을 수 있는 멤버들을 protected 접근 지정자로 받겠다는 것을 의미한다.
+    // std::cout << m1897->FireArmPublicInt << std::endl;
+    // 접근 한정자에서 Pistol은 private로 받았다. 이는 부모 클래스의 물려받을 수 있는 멤버들을 private 접근 지정자로 받겠다는 것을 의미한다.
+    // std::cout << glock->FireArmPublicInt << std::endl;
+}
+```
+
+```
+30
+60
+```
+
+코드의 출력 결과를 살펴보면 30과 60이 출력된 것을 확인할 수 있다. 이 때, 30의 경우에는 당연한 결과이다. FireArm 클래스의 생성자가 FireArmPublicInt라는 변수를 30으로 초기화시키기 때문이다. 하지만 60의 경우는, AssaultRifle 클래스의 생성자가 FireArmPublicInt를 60으로 초기화하는데, 이 변수는 해당 클래스에서 선언된적이 없다. 즉, 상속으로 받아온 변수가 자신의 멤버 변수가 되는 것이다.
+
+상속을 받을때, 접근제어 지시자를 통해서 상속받는 멤버들의 접근제어 지시자를 지정해줄 수 있다. 65번 라인과 67번 라인은 주석처리되어 있는데, 이는 해당 클래스가 부모 클래스인 FireArm으로부터 상속을 받을 때 어떤 접근제어 지시자를 사용했는지를 확인하면 왜 주석 처리된 코드들이 동작하지 않는지 알 수 있다. Shotgun 클래스의 경우에는 접근제어 지시자로 protected를 사용했다. 이는 상속받는 멤버들을 전부 protected로 접근제어 지시자를 사용한 것과 동일하다. 마찬가지로, Pistol 클래스의 상속 받을 때의 접근제어 지시자로 private를 사용했다. 이렇게 하면 상속받은 모든 멤버들이 private 접근제어 지시자로 접근이 제한된 것과 동일하다.
+
+만약 특정 클래스가 더 이상 상속되지 못하게 하려면 어떻게 해야 할까. C++에서는 특정 클래스가 더 이상 상속될 수 없음을 나타내는 키워드로 final을 사용한다[^1]. final의 사용예는 아래와 같다.
+
+```c++
+class FinalClass final
+{
+    …
+}
+```
 
 
 
