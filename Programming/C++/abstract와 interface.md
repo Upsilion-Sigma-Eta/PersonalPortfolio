@@ -23,7 +23,7 @@ class dummyInterface
     	// 아래의 세 표현은 동일하다.
     	virtual void func_1() = 0;
     	virtual void func_2() = NULL;
-    	virtual void func_3() abstract
+    	virtual void func_3() abstract;
 }
 ```
 
