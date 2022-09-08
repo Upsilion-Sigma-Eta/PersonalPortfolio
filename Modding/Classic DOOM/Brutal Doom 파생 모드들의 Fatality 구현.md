@@ -7,3 +7,4 @@
 Brutal Doom의 파생모드인 Brutal Doom Black Edition에서는 `countinv("FinisherToken",AAPTR_PLAYER_GETTARGET)>=1 && ` 라는 조건으로 페이탈리티(글로리킬)의 실행 여부를 판단한다. FinishToken은 Wound State에서 각 몬스터에게 부여된다. Project Brutality 3.0의 애드온인 GloryKill 모드에서도 동일한 방법을 채택하고 있다.
 
 원본 Brtual Doom 에서는 어떻게 처리하는지에 대해서는 Brutal Doom의 신버전이 나오고 난 뒤 분석하고자 한다.
+
