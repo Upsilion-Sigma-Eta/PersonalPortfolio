@@ -109,5 +109,5 @@ BreadthFirstSearch(vertexList, 0);
 
 [^1]: "Graph", Encyclopedia of Mathematics, (English), Springer-Verlag, 2001, ISBN 978-1-55608-010-4
 [^2]: "Graph isomorphism", Encyclopedia of mathematics (English), Springer-Verlag, 2001, ISBN 978-1-55608-010-4
-[^3]: heejeong Kwon, "[아록리즘] 너비 우선 탐색(BFS)이란", Heee's Development Blog, 2018-08-15, Accessed on: 2022-09-09 20:57:30
+[^3]: heejeong Kwon, "[알고리즘] 너비 우선 탐색(BFS)이란", Heee's Development Blog, 2018-08-15, Accessed on: 2022-09-09 20:57:30
 

@@ -11,5 +11,6 @@
 - [Figure](./Figure) - 문서에 들어가는 그림들을 모아놓은 곳 🖼️
 - [Programming](./Programming) - 프로그래밍 전반에 대한 정보들을 모아놓은 곳 🖥️
   - [C++](Programming/C++) - C++와 관련된 정보들을 모아놓은 곳 🆒
-
+  - [Algorithm](Programming\Algorithm) - 알고리즘과 관련된 정보들을 모아놓은 곳 📇
+  - [Computer Science](Programming\Computer Science) - 컴퓨터공학관련 정보들을 모아놓은 📖
 
